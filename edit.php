@@ -23,7 +23,25 @@
 		
 		<?php
           // fill in the blanks	- Update sql for the player name, description, image
+		  $player = $desc = $oldplayer = "";
+		  if(isset($_POST["edit"])){
+			  $oldplayer = $_GET["name"];
+			  $player = $_POST["player"];
+			  $desc = $_POST["description"];
+			  $file = addslashes(file_get_contents($_FILES["image"]["tmp_name"]));
 
+			  $query = "UPDATE players SET PlayerName = '$player',
+			  Description = '$desc', Image = '$file' WHERE PlayerName = '$oldplayer' ";
+			  $query_run = mysqli_query($con, $query);
+
+			  if($query_run){
+				  echo "<script> alert('Player updated');
+				  location.href = 'edit.php';
+				  </script>";
+			  }else {
+				  echo "<script> alert('Player was NOT updated!')</script>";
+			  }
+		  }
 
 		?>
 
@@ -34,7 +52,12 @@
 					<br>
 					<?php
 						// fill in the blanks - select hyperlink of athlete
-
+						$query = "SELECT PlayerName FROM players";
+						$result = mysqli_query($con, $query);
+						while($row = mysqli_fetch_array($result)){
+							$name = $row['PlayerName'];
+							echo "<h4> <a href='edit.php?name=$name'> $name <br> </a> </h4>";
+						}
 	
 					?>
 				</div>
@@ -42,7 +65,14 @@
 				<div class = "col-9">
 					<?php
 					// fill in the blanks - select to display athlete to be edited
-					
+					if(isset($_GET["name"])){
+						$name = $_GET["name"];
+						$query = "SELECT * FROM players WHERE PlayerName = '$name' ";
+						$query_run = mysqli_query($con, $query);
+						$row = mysqli_fetch_array($query_run);
+
+						$playername = $row["PlayerName"];
+						$playerdesc = $row["Description"];
 
 						echo '<form method="post" enctype="multipart/form-data" action="';
 						echo htmlspecialchars("edit.php?name=$name");

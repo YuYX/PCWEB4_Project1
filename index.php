@@ -1,10 +1,7 @@
 <?php
 	require "dbconfig/config.php";
 ?>
-<?php
-	// fill in the blanks - Retrieve Players Name 
-	
-?>
+
 
 
 <!DOCTYPE html>

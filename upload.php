@@ -41,13 +41,14 @@
 			<div class="row">
 				<div class="col-2"></div>
 				<div class="col-8">
-					<form method = "post" enctype="multipart/form-data" action = "<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
+					<form method = "post" enctype="multipart/form-data" 
+					action = "<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
 						<h2>Player</h2>
 						<input class="player" type="text" name="player">
 						<h2>Description</h2>
 						<textarea class="desc" name="description"></textarea>
-						<input type="file" name="image">
-						<input type="submit" value="Submit" name="upload">
+						<input type="file" name="image" accept="image/png, image/jpeg">
+						<input type=submit value="Submit" name="upload">
 					</form>
 				</div>
 				<div class="col-2"></div>
